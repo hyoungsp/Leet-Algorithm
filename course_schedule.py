@@ -28,31 +28,31 @@ def course_schedule(num_courses, prereq):
     
     ## set up graph wit adj_list and status of vertices
     graph = defaultdict(list)
-    status = defaultdict(str)
+    status = defaultdict(int)
 
-    for v, nei in prereq:
-        graph[v].append(nei)
+    for nxt, pre in prereq:
+        graph[pre].append(nxt)
 
     for i in range(num_courses):
-        status[i] = ""
+        status[i] = 0
 
     def dfs(v):
-        if status[v] == "completed":
+        if status[v] == -1:
             return True
-        if status[v] == "visited":
+        if status[v] == 1:
             return False
         
-        status[v] = "visited"
+        status[v] = 1
 
         for u in graph[v]:
             if dfs(u) == False:
                 return False
         
-        status[v] = "completed"
+        status[v] = -1
         return True
     
-    for i in range(num_courses):
-        if dfs(i) == False:
+    for v in range(num_courses):
+        if dfs(v) == False:
             return False
     
     return True
