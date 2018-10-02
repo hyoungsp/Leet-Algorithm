@@ -42,16 +42,16 @@ def course_schedule(num_courses, prereq):
             return True
         if status[v] == 1:
             return False
-        
-        status[v] = 1
+        else:
+            status[v] = 1
 
-        for u in graph[v]:
-            if not dfs(u):
-                return False
-        
-        status[v] = -1
-        result.append(v)
-        return True
+            for u in graph[v]:
+                if not dfs(u):
+                    return False
+            
+            status[v] = -1
+            result.append(v)
+            return True
     
     for v in range(num_courses):
         if not dfs(v):
